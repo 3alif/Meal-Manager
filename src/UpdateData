@@ -1,0 +1,19 @@
+public class UpdateData {
+    public static void update(int id, int mealCount) {
+        String sql = "UPDATE meals SET meal_count = ? WHERE id = ?";
+
+        try (Connection conn = DatabaseConnection.connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, mealCount);
+            pstmt.setInt(2, id);
+            pstmt.executeUpdate();
+            System.out.println("Data updated successfully.");
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public static void main(String[] args) {
+        update(1, 5); // Update meal count for member with ID 1
+    }
+}
